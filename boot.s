@@ -20,6 +20,10 @@ _unused_vector:
 	bl puts
 	b died
 _start_bach:
+	/* Service mode with irq & fiq disabled */
+	mov r0, #0xd3
+	msr     cpsr, r0
+	/* Setup stack pointer */
 	ldr sp, =vectors
 	sub sp, sp, #10
 	bl kernel_main
