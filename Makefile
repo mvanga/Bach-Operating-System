@@ -2,10 +2,10 @@ AS=$(CROSS_COMPILE)as
 CC=$(CROSS_COMPILE)gcc
 LD=$(CROSS_COMPILE)ld
 
-SOURCES=start.o main.o serial.o
+SOURCES=boot.o vectors.o main.o serial.o
 
 ASFLAGS=
-CFLAGS=-Wall -Wextra -nostdlib -nostartfiles -ffreestanding -std=gnu99 -I./include
+CFLAGS=-Wall -ggdb -Wextra -nostdlib -nostartfiles -ffreestanding -std=gnu99 -I./include
 
 LINKER_FILE=link.ld
 KERNEL_NAME=kernel

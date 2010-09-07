@@ -29,7 +29,7 @@ void putc (char c)
 
 void puts (const char *str)
 {
-	while(*str)
+	while(*str != '\0')
 		putc(*str++);
 }
 
