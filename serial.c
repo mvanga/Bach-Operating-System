@@ -3,7 +3,7 @@
 u32 __serial_base = 0x101F1000;
 #define SERIAL_BASE ((volatile u32 *)__serial_base)
 
-#define FLAG_BUSY 0x08
+#define FLAG_BUSY (1 << 3)
 
 enum serial_regs {
 	SERIAL_DATA,
