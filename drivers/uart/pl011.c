@@ -1,4 +1,6 @@
+#include <bach/module.h>
 #include <bach/types.h>
+#include <bach/serial.h>
 
 u32 __serial_base = 0x101F1000;
 #define SERIAL_BASE ((volatile u32 *)__serial_base)
@@ -16,7 +18,7 @@ enum serial_regs {
 	SERIAL_1C_RESERVED
 };
 
-void putc (char c)
+static void putc (char c)
 {
 	volatile u32 *base = SERIAL_BASE;
 	/* Serial console wants /n/r */
@@ -27,9 +29,23 @@ void putc (char c)
 	base[SERIAL_DATA] = c;
 }
 
-void puts (const char *str)
+static void puts (const char *str)
 {
 	while(*str != '\0')
 		putc(*str++);
 }
 
+int pl011_init(void)
+{
+	register_uart(&putc, &puts);
+	kputs("PL011 serial driver initialized\n");
+	return 0;
+}
+
+void pl011_exit(void)
+{
+	kputs("PL011 serial driver exited\n");
+}
+
+driver_init(pl011_init);
+driver_exit(pl011_exit);

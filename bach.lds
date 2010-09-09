@@ -16,4 +16,20 @@ SECTIONS
 	.bss : { *(.bss); }
 	. = ALIGN(16);
 	__bss_end = .;
+
+	. = ALIGN(16);
+	__initcall_begin = .;
+	.text.initcall :
+	{
+		*(.initcall0.init);
+	}
+	__initcall_end = .;
+
+	. = ALIGN(16);
+	__exitcall_begin = .;
+	.text.exitcall :
+	{
+		*(.exitcall0.exit);
+	}
+	__exitcall_end = .;
 }
