@@ -19,26 +19,27 @@ void do_initcalls(void)
 void do_exitcalls(void)
 {
 	exitcall_t *call;
-	call = &__exitcall_begin;
+	call = &__exitcall_end;
+	call--;
 	do {
 		(*call)();
-		call++;
-	} while (call < &__exitcall_end);
+		call--;
+	} while (call >= &__exitcall_begin);
 }
 
 int kernel_main(void)
 {
-	bach_mem_setup();
+	mem_setup();
+	irq_setup();
 
 	do_initcalls();
 
-	bach_irq_setup();
-	bach_irq_enable();
+	irq_enable();
 
 	kputs("Hello World\n");
+	for(;;);
 
 	do_exitcalls();
 
-	for(;;);
 	return 0;
 }

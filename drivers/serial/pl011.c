@@ -29,23 +29,17 @@ static void putc (char c)
 	base[SERIAL_DATA] = c;
 }
 
-static void puts (const char *str)
+int init_pl011(void)
 {
-	while(*str != '\0')
-		putc(*str++);
-}
-
-int pl011_init(void)
-{
-	register_uart(&putc, &puts);
-	kputs("PL011 serial driver initialized\n");
+	register_uart(&putc);
+	kputs("Serial (PL011) driver initialized\n");
 	return 0;
 }
 
-void pl011_exit(void)
+void exit_pl011(void)
 {
-	kputs("PL011 serial driver exited\n");
+	kputs("Serial (PL011) driver exited\n");
 }
 
-driver_init(pl011_init);
-driver_exit(pl011_exit);
+driver_init(init_pl011);
+driver_exit(exit_pl011);
