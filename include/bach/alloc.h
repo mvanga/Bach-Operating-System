@@ -3,7 +3,7 @@
 
 #include <bach/types.h>
 
-#define HEAP_SIZE 1000
+#define HEAP_SIZE 10000
 
 void init_alloc(u32 start, u32 size);
 

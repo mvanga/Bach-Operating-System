@@ -71,26 +71,11 @@ int kernel_main(void)
 	mem_setup();
 	irq_setup();
 	init_tasks();
+	init_alloc((u32)&__alloc_begin, HEAP_SIZE);
 
 	do_initcalls();
 
-	init_alloc((u32)&__alloc_begin, HEAP_SIZE);
 	print_blocks();
-	char *a = kmalloc(10);
-	print_blocks();
-	char *b = kmalloc(20);
-	print_blocks();
-	char *c = kmalloc(30);
-	print_blocks();
-	char *d = kmalloc(40);
-	print_blocks();
-	kfree(a);
-	print_blocks();
-	kfree(c);
-	print_blocks();
-	kfree(b);
-	print_blocks();
-	
 
 	for(i = 0; i < ARRAY_SIZE(task_list); i++)
 		task_register(task_list + i);
