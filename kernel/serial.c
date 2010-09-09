@@ -178,7 +178,7 @@ void printk(char *s, ...)
 	return;
 }
 
-void register_uart_driver(putc_f putc)
+void register_serial_driver(putc_f putc)
 {
 	uart.putc = putc;
 }

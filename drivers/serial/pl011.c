@@ -31,7 +31,7 @@ static void putc (char c)
 
 int init_pl011(void)
 {
-	register_uart_driver(&putc);
+	register_serial_driver(&putc);
 	kputs("Serial (PL011) driver initialized\n");
 	return 0;
 }

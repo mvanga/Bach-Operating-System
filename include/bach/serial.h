@@ -15,6 +15,6 @@ void kputhex(u32 n);
 void kputdec(u32 n);
 void printk(char *s, ...);
 
-void register_uart_driver(putc_f putc);
+void register_serial_driver(putc_f putc);
 
 #endif
