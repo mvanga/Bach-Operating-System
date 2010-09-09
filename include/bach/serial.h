@@ -1,6 +1,8 @@
 #ifndef BACH_SERIAL_H
 #define BACH_SERIAL_H
 
+#include <bach/types.h>
+
 typedef void (*putc_f)(char);
 
 struct serial_driver {
@@ -9,6 +11,10 @@ struct serial_driver {
 
 void kputc(char c);
 void kputs(const char *str);
-void register_uart(putc_f putc);
+void kputhex(u32 n);
+void kputdec(u32 n);
+void printk(char *s, ...);
+
+void register_uart_driver(putc_f putc);
 
 #endif

@@ -20,7 +20,7 @@ static void putc(char c)
 
 int init_93xx(void)
 {
-	register_uart(&putc);
+	register_uart_driver(&putc);
 	kputs("Serial (93xx) driver initialized\n");
 	return 0;
 }

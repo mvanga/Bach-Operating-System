@@ -1,3 +1,5 @@
+#include <asm/memory.h>
+
 #include <bach/types.h>
 #include <bach/system.h>
 

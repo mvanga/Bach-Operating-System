@@ -13,7 +13,6 @@ void timer_irq_handler(void *arg)
 	u32 nr = *(u32*)arg;
 	nr = 0;
 	TIMER[3] = 0;
-	kputc('.');
 }
 
 int timer_init(void)
@@ -32,6 +31,7 @@ int timer_init(void)
 
 void timer_exit(void)
 {
+	irq_free(5, (void *)&timer_nr);
 	kputs("Timer (SP804) driver exited\n");
 }
 

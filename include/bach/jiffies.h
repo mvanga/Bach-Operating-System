@@ -1,7 +1,7 @@
 #ifndef BACH_JIFFIES_H
 #define BACH_JIFFIES_H
 
-#define HZ 100
+#define HZ 1000
 
 #define INITIAL_JIFFIES ((unsigned long)(unsigned int)(-30 * HZ))
 

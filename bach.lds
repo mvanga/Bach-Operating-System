@@ -18,6 +18,14 @@ SECTIONS
 	__bss_end = .;
 
 	. = ALIGN(16);
+	__exitcall_begin = .;
+	.text.exitcall :
+	{
+		*(.exitcall0.exit);
+	}
+	__exitcall_end = .;
+
+	. = ALIGN(16);
 	__initcall_begin = .;
 	.text.initcall :
 	{
@@ -25,11 +33,5 @@ SECTIONS
 	}
 	__initcall_end = .;
 
-	. = ALIGN(16);
-	__exitcall_begin = .;
-	.text.exitcall :
-	{
-		*(.exitcall0.exit);
-	}
-	__exitcall_end = .;
+	__alloc_begin = .;
 }
