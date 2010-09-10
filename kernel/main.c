@@ -75,8 +75,6 @@ int kernel_main(void)
 
 	do_initcalls();
 
-	print_blocks();
-
 	for(i = 0; i < ARRAY_SIZE(task_list); i++)
 		task_register(task_list + i);
 
