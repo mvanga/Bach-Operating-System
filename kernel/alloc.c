@@ -123,6 +123,7 @@ void *kmalloc(u32 size)
 	if (left > 4)
 		break_block(fit, size);
 	fit->used = 1;
+	print_blocks();
 	return fit->mem;
 }
 
@@ -138,6 +139,7 @@ void kfree(void *ptr)
 		merge_next(header);
 	if(header->prev && header->prev->used == 0)
 		merge_prev(header);
+	print_blocks();
 }
 
 void print_blocks()
