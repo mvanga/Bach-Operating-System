@@ -23,10 +23,10 @@ ELF=$(NAME)
 BIN=$(NAME).bin
 SREC=$(NAME).srec
 
-# Architecture specific source files
-obj-$(ARCH_ARM) += arch/arm/boot.o arch/arm/vectors.o arch/arm/irq.o arch/arm/memory.o
 # Main kernel source files
 obj-y += kernel/main.o kernel/serial.o kernel/irq.o kernel/time.o kernel/task.o kernel/alloc.o
+# Architecture specific source files
+obj-$(ARCH_ARM) += arch/arm/boot.o arch/arm/vectors.o arch/arm/irq.o arch/arm/memory.o
 # Kernel library files
 obj-y += klib/string.o klib/_divsi3.o  klib/_udivsi3.o klib/div0.o
 
