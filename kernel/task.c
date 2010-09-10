@@ -1,5 +1,6 @@
 #include <bach/task.h>
 #include <bach/jiffies.h>
+#include <bach/system.h>
 
 struct bach_task tasks[MAX_TASKS];
 static int num_tasks = 0;
@@ -30,6 +31,7 @@ int task_register(const struct bach_task_attr *attr)
 	t->period = msecs_to_jiffies(attr->period);
 	t->state = RUNNING;
 	t->arg = attr->arg;
+	t->custom_blk = NULL;
 	num_tasks++;
 	return task_idx;
 }

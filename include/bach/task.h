@@ -36,6 +36,7 @@ struct bach_task {
 	u32 *stack;
 	int state;
 	void *arg;
+	void *custom_blk;
 };
 
 extern struct bach_task tasks[MAX_TASKS];
