@@ -3,6 +3,7 @@
 
 void irq_enable(void);
 void irq_disable(void);
+void fiq_enable(void);
 void fiq_disable(void);
 
 #endif
