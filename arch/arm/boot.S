@@ -81,8 +81,8 @@ _start_irq:
 _start_fiq:
 	ldr sp, =vectors
 	sub sp, sp, #10
-	adr r0, fiq_msg
-	bl kputs
+/*	adr r0, fiq_msg
+	bl kputs*/
 	subs pc, lr, #4
 
 died:
