@@ -10,7 +10,7 @@ int next_task_index(void)
 	int i;
 	struct bach_task *t;
 	for_each_task(t, i) {
-		if (t->state == KILLED)
+		if (t->state == TASK_STOPPED)
 			return i;
 	}
 	return -1;
@@ -29,7 +29,7 @@ int task_register(const struct bach_task_attr *attr)
 	t->attr = attr;
 	t->nextrun = msecs_to_jiffies(attr->initial);
 	t->period = msecs_to_jiffies(attr->period);
-	t->state = RUNNING;
+	t->state = TASK_RUNNING;
 	t->arg = attr->arg;
 	t->custom_blk = NULL;
 	num_tasks++;
@@ -42,10 +42,10 @@ int task_unregister(int idx)
 	if (idx >= MAX_TASKS)
 		return -1;
 	t = &tasks[idx];
-	if (t->state == KILLED)
+	if (t->state == TASK_STOPPED)
 		return -1;
 
-	t->state = KILLED;
+	t->state = TASK_STOPPED;
 	num_tasks--;
 	return 0;
 }
@@ -55,7 +55,7 @@ void init_tasks()
 	int i;
 	struct bach_task *t;
 	for_each_task(t, i) {
-		t->state = KILLED;
+		t->state = TASK_STOPPED;
 	}
 }
 
@@ -76,7 +76,7 @@ void kernel_mainloop(void)
 	while(1) {
 		current = 0;
 		for_each_task(t, i) {
-			if (t->state == KILLED)
+			if (t->state == TASK_STOPPED)
 				continue;
 			if (!current) {
 				current = t;

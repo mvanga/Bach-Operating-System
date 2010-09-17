@@ -7,9 +7,9 @@
 
 #define MAX_TASKS	10
 
-#define RUNNING	0
-#define BLOCKED 1
-#define KILLED  2
+#define TASK_RUNNING 0
+#define TASK_BLOCKED 1
+#define TASK_STOPPED 2
 
 #define for_each_task(t, i) \
     for (i = 0, t = tasks; \
