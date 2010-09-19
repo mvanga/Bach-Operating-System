@@ -1,0 +1,9 @@
+* Serial Driver List
+	- driver name
+	- driver desc
+	- dev name format
+	- ops
+
+* Serial Port List
+	- dev name
+	- driver

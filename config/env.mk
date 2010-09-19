@@ -1,7 +1,7 @@
 # Cross compilation toolchain
 AS=$(CROSS_COMPILE)as
 CC=$(CROSS_COMPILE)gcc
-LD=$(CROSS_COMPILE)ld
+LD=$(CROSS_COMPILE)gcc
 OBJCOPY=$(CROSS_COMPILE)objcopy
 
 ARCH?=arm

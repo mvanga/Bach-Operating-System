@@ -1,4 +1,6 @@
 #include <bach/string.h>
+#include <klib/stdlib.h>
+#include <klib/stddef.h>
 
 int kstrlen(char *str)
 {

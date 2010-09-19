@@ -1,6 +1,8 @@
 
 # Build Rules
 
+CFLAGS += $(cflags-y)
+
 all: force $(ELF) $(BIN) $(SREC)
 
 $(ELF): $(obj-y)
