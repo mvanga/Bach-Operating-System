@@ -14,6 +14,7 @@ typedef int wchar_t;
 #endif
 
 typedef signed long ssize_t;
+typedef unsigned int off_t;
 
 #undef NULL
 #if defined(__cplusplus)

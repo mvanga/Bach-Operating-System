@@ -7,6 +7,7 @@ OBJCOPY=$(CROSS_COMPILE)objcopy
 ARCH?=arm
 ifeq ($(ARCH),arm)
 ARCH_ARM=y
+ARCH_FLAG=__arm__
 endif
 
 # Compilation flags

@@ -8,7 +8,7 @@ obj-$(ARCH_ARM) += arch/arm/boot.o arch/arm/vectors.o arch/arm/irq.o arch/arm/me
 # Kernel library files
 obj-y += klib/string.o klib/_divsi3.o  klib/_udivsi3.o klib/div0.o
 # Kernel space standard C library
-cflags-$(CONFIG_KLIBC) += -I./lib/include
+cflags-$(CONFIG_KLIBC) += -I./lib/include -D$(ARCH_FLAG)
 obj-$(CONFIG_KLIBC) += lib/string/memchr.o lib/string/memcmp.o lib/string/memmove.o \
 				lib/string/memset.o lib/string/strcat.o lib/string/strchr.o \
 				lib/string/strcmp.o lib/string/strcoll.o lib/string/strcpy.o \
@@ -16,29 +16,23 @@ obj-$(CONFIG_KLIBC) += lib/string/memchr.o lib/string/memcmp.o lib/string/memmov
 				lib/string/strncmp.o lib/string/strncpy.o lib/string/strpbrk.o \
 				lib/string/strrchr.o lib/string/strspn.o lib/string/strstr.o \
 				lib/string/strtok.o lib/string/strxfrm.o lib/string/memcpy.o \
-				\
 				lib/assert/assert_fail.o \
-				\
 				lib/ctype/isalnum.o lib/ctype/isalpha.o lib/ctype/isblank.o \
 				lib/ctype/iscntrl.o lib/ctype/isdigit.o lib/ctype/isgraph.o \
 				lib/ctype/islower.o lib/ctype/isprint.o lib/ctype/ispunct.o \
 				lib/ctype/isspace.o lib/ctype/isupper.o lib/ctype/isxdigit.o \
 				lib/ctype/tolower.o lib/ctype/toupper.o \
-				\
 				lib/errno/errno_location.o \
-				\
 				lib/stdlib/getenv.o lib/stdlib/putenv.o lib/stdlib/environ.o \
 				lib/stdlib/strtod.o lib/stdlib/strtol.o lib/stdlib/strtoll.o \
 				lib/stdlib/strtoul.o lib/stdlib/strtoull.o lib/stdlib/atexit.o \
 				lib/stdlib/atoi.o lib/stdlib/atol.o lib/stdlib/atof.o \
 				lib/stdlib/rand.o lib/stdlib/rand_r.o lib/stdlib/rand48.o \
 				lib/stdlib/qsort.o lib/stdlib/bsearch.o lib/stdlib/div.o \
-				lib/stdlib/ldiv.o \
-				\
-				lib/malloc/calloc.o lib/malloc/free.o lib/malloc/malloc.o \
+				lib/stdlib/ldiv.o lib/stdlib/alloc.o \
+				lib/klib_glue.o 
+#				lib/malloc/calloc.o lib/malloc/free.o lib/malloc/malloc.o \
 				lib/malloc/malloc_memobj.o lib/malloc/memalign.o lib/malloc/realloc.o \
-				\
-				lib/klib_glue.o
 
 # Driver files
 obj-$(CONFIG_ARM_VIC) += drivers/irq/arm-vic.o
