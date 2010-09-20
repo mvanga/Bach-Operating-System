@@ -1,5 +1,3 @@
-#include <lib.h>
-
 #include <bach/module.h>
 #include <bach/serial.h>
 #include <bach/irq.h>

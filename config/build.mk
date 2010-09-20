@@ -6,7 +6,7 @@ CFLAGS += $(cflags-y)
 all: force $(ELF) $(BIN) $(SREC)
 
 $(ELF): $(obj-y)
-	$(LD) -T $(LINKER_FILE) $(LDFLAGS) $(obj-y) -o $@
+	$(LD) -T $(LINKER_FILE) $(LDFLAGS) $(obj-y) $(LDFLAGS) -o $@
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $^ $@

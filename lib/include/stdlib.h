@@ -11,7 +11,6 @@ void *realloc(void *ptr, size_t size);
 char *getenv(const char *name);
 int putenv(const char *string);
 
-int system (const char * string);
 int atexit(void (*function)(void));
 
 double strtod(const char *nptr, char **endptr);
@@ -28,12 +27,25 @@ void exit(int status);
 void abort(void);
 
 extern int rand(void);
+extern int rand_r(unsigned int *seed);
 extern void srand(unsigned int seed);
+
+typedef unsigned short randbuf[3];
+double drand48(void);
+long lrand48(void);
+long mrand48(void);
+void srand48(long seed);
+unsigned short *seed48(randbuf buf);
+void lcong48(unsigned short param[7]);
+long jrand48(randbuf buf);
+long nrand48(randbuf buf);
+double erand48(randbuf buf);
 
 void qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
 void *bsearch(const void *key, const void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
 
 extern char **environ;
+extern void *klibc_mem;
 
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
@@ -47,10 +59,5 @@ typedef struct { long quot,rem; } ldiv_t;
 
 div_t div(int numerator, int denominator);
 ldiv_t ldiv(long numerator, long denominator);
-
-int mbtowc(wchar_t *pwc, const char *s, size_t n);
-int wctomb(char *s, wchar_t wc);
-size_t mbstowcs(wchar_t *dest, const char *src, size_t n);
-int mblen(const char* s,size_t n);
 
 #endif

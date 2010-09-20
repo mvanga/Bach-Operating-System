@@ -33,13 +33,13 @@ static void putc (char c)
 int init_pl011(void)
 {
 	register_serial_driver(&putc);
-	kputs("Serial (PL011) driver initialized\n");
+	printk("Serial (PL011) driver initialized\n");
 	return 0;
 }
 
 void exit_pl011(void)
 {
-	kputs("Serial (PL011) driver exited\n");
+	printk("Serial (PL011) driver exited\n");
 }
 
 driver_init(init_pl011);

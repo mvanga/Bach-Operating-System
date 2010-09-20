@@ -5,19 +5,33 @@
 
 #define MAGIC_CHECK 0xDEEEDAAA
 
+#define GROW_BUFFER_SIZE 1024
+
 #define for_each_block(t, i) \
 	for(t = head, i = 0; \
 		t != NULL; \
 		t=t->next, i++)
 
-struct header *head;
+#define for_each_alloc_list_entry(l, i) \
+	for(l = alloc_head, i = 0; \
+		l != NULL; \
+		l=l->next, i++)
+
+struct alloc_list *alloc_head = NULL;
+struct header *head = NULL;
 u32 current;
+
+struct alloc_list {
+	struct header *first;
+	int full : 1;
+	struct alloc_list *next;
+};
 
 struct header {
 	u32 magic;
 	u32 size;
 	void *mem;
-	int used;
+	int used : 1;
 	struct footer *foot;
 	struct header *next;
 	struct header *prev;
@@ -33,6 +47,33 @@ u32 simple_malloc(u32 size)
 	u32 ret = current;
 	current += size;
 	return ret;
+}
+
+void add_block(u32 size)
+{
+	u32 msize = size - sizeof(struct header) - sizeof(struct footer);
+
+	struct header *h;
+	h = (struct header *)simple_malloc(sizeof(struct header));
+	h->magic = MAGIC_CHECK;
+	h->size = msize;
+	h->mem = (void *)simple_malloc(msize);
+	h->next = NULL;
+	h->prev = NULL;
+	h->used = 0;
+
+	struct footer *foot = (struct footer *)simple_malloc(sizeof(struct footer));
+	foot->magic = MAGIC_CHECK;
+	foot->head = h;
+
+	h->foot = foot;
+
+	struct alloc_list *alloc_entry;
+	alloc_entry = (struct alloc_list *)simple_malloc(sizeof(struct alloc_list));
+	alloc_entry->first = head;
+	alloc_entry->full = 0;
+	alloc_entry->next = alloc_head;
+	alloc_head = alloc_entry;
 }
 
 void init_alloc(u32 start, u32 size)
@@ -53,6 +94,11 @@ void init_alloc(u32 start, u32 size)
 	foot->head = head;
 
 	head->foot = foot;
+
+	alloc_head = (struct alloc_list *)simple_malloc(sizeof(struct alloc_list));
+	alloc_head->first = head;
+	alloc_head->full = 0;
+	alloc_head->next = NULL;
 }
 
 void break_block(struct header *block, u32 size)
@@ -102,22 +148,29 @@ void merge_prev(struct header *block)
 void *kmalloc(u32 size)
 {
 	int i;
-	struct header *t;
+	int j;
 	struct header *fit = NULL;
-	for_each_block(t, i) {
-		if (t->used)
-			continue;
-		if (fit == NULL) {
-			fit = t;
-			continue;
-		}
-		if (t->size >= size && t->size < fit->size) {
-			fit = t;
-			continue;
+	struct alloc_list *l;
+	for_each_alloc_list_entry(l, j) {
+		struct header *t = l->first;
+		for_each_block(t, i) {
+			if (t->used)
+				continue;
+			if (fit == NULL) {
+				fit = t;
+				continue;
+			}
+			if (t->size >= size && t->size < fit->size) {
+				fit = t;
+				continue;
+			}
 		}
 	}
-	if (fit == NULL)
+	if (fit == NULL) {
+		add_block(GROW_BUFFER_SIZE);
+		return kmalloc(size);
 		return NULL;
+	}
 	/* Check if we can break the block down */
 	int left = fit->size - size - sizeof(struct header) - sizeof(struct footer);
 	if (left > 4)

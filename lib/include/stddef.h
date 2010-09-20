@@ -13,6 +13,8 @@ typedef unsigned long size_t;
 typedef int wchar_t;
 #endif
 
+typedef signed long ssize_t;
+
 #undef NULL
 #if defined(__cplusplus)
 #define NULL 0

@@ -29,7 +29,16 @@ obj-$(CONFIG_KLIBC) += lib/string/memchr.o lib/string/memcmp.o lib/string/memmov
 				\
 				lib/stdlib/getenv.o lib/stdlib/putenv.o lib/stdlib/environ.o \
 				lib/stdlib/strtod.o lib/stdlib/strtol.o lib/stdlib/strtoll.o \
-				lib/stdlib/strtoul.o lib/stdlib/strtoull.o
+				lib/stdlib/strtoul.o lib/stdlib/strtoull.o lib/stdlib/atexit.o \
+				lib/stdlib/atoi.o lib/stdlib/atol.o lib/stdlib/atof.o \
+				lib/stdlib/rand.o lib/stdlib/rand_r.o lib/stdlib/rand48.o \
+				lib/stdlib/qsort.o lib/stdlib/bsearch.o lib/stdlib/div.o \
+				lib/stdlib/ldiv.o \
+				\
+				lib/malloc/calloc.o lib/malloc/free.o lib/malloc/malloc.o \
+				lib/malloc/malloc_memobj.o lib/malloc/memalign.o lib/malloc/realloc.o \
+				\
+				lib/klib_glue.o
 
 # Driver files
 obj-$(CONFIG_ARM_VIC) += drivers/irq/arm-vic.o
