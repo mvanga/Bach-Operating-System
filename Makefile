@@ -1,5 +1,4 @@
 include config/env.mk
-include .config
 
 # Main kernel source files
 obj-y += kernel/main.o kernel/serial.o kernel/irq.o kernel/time.o kernel/task.o kernel/alloc.o

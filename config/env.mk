@@ -1,3 +1,8 @@
+include .config
+include .config_defs
+
+option_defs=$(patsubst %,-D%, $(opt-y))
+
 # Cross compilation toolchain
 AS=$(CROSS_COMPILE)as
 CC=$(CROSS_COMPILE)gcc
@@ -11,8 +16,8 @@ ARCH_FLAG=__arm__
 endif
 
 # Compilation flags
-ASFLAGS=-I./include -I./arch/$(ARCH)/include -D__ASSEMBLY__
-CFLAGS=-Wall -ggdb -Wextra -nostdlib -nostartfiles -ffreestanding -std=gnu99 -I./include -I./arch/$(ARCH)/include
+ASFLAGS=-I./include -I./arch/$(ARCH)/include -D__ASSEMBLY__ $(option_defs)
+CFLAGS=-Wall -ggdb -Wextra -nostdlib -nostartfiles -ffreestanding -std=gnu99 -I./include -I./arch/$(ARCH)/include $(option_defs)
 LDFLAGS=-nostartfiles /opt/eldk-4.2/usr/lib/gcc/arm-linux-gnueabi/4.2.2/libgcc.a
 
 # Kernel specific stuff
